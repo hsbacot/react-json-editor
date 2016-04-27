@@ -79,6 +79,7 @@ export default class JSONTree extends React.Component {
   };
 
   render() {
+    console.log('hb');
     const {
       data: value,
       expandRoot,
