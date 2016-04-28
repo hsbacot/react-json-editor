@@ -6,7 +6,6 @@
 import React, { PropTypes } from 'react';
 import JSONNode from './JSONNode';
 import createStylingFromTheme from './createStylingFromTheme';
-
 const identity = value => value;
 
 function checkLegacyTheming(theme, props) {
@@ -74,8 +73,17 @@ export default class JSONTree extends React.Component {
     valueRenderer: identity,
     postprocessValue: identity,
     isCustomNode: () => false,
+    handleClick: () => {
+      console.log( // eslint-disable-line no-console
+        'HB Click from index'
+      );
+    },
     collectionLimit: 50,
     isLightTheme: true
+  };
+
+  valueOnClick = () => {
+    console.log('val');
   };
 
   render() {
@@ -114,6 +122,7 @@ export default class JSONTree extends React.Component {
           allExpanded={typeof expandAll === 'undefined' ? false : expandAll}
           keyPath={hideRoot ? [] : keyPath}
           value={postprocessValue(value)}
+          valueOnClick={this.valueOnClick}
         />
       </ul>
     );
