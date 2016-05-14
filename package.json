@@ -10,7 +10,8 @@
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive --watch",
     "test:cov": "babel-node ./node_modules/.bin/isparta cover ./node_modules/.bin/_mocha -- --recursive",
-    "prepublish": "npm run lint && npm run test && npm run clean && npm run build"
+    "prepublish": "npm run lint && npm run test && npm run clean && npm run build",
+    "storybook": "start-storybook -p 9001"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
   },
   "keywords": [
     "react",
-    "json viewer"
+    "json editor"
   ],
   "author": "Shu Uesugi <shu@chibicode.com> (http://github.com/chibicode)",
   "contributors": [
@@ -31,6 +32,7 @@
   },
   "homepage": "https://github.com/chibicode/react-json-tree",
   "devDependencies": {
+    "@kadira/storybook": "^1.25.0",
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.7",
     "babel-eslint": "^6.0.3",
@@ -42,6 +44,7 @@
     "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "dot-object": "^1.4.1",
     "eslint": "^2.8",
     "eslint-config-airbnb": "^8.0.0",
     "eslint-plugin-babel": "^3.2.0",
