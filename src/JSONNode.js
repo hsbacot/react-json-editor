@@ -4,6 +4,7 @@ import JSONObjectNode from './JSONObjectNode';
 import JSONArrayNode from './JSONArrayNode';
 import JSONIterableNode from './JSONIterableNode';
 import JSONValueNode from './JSONValueNode';
+import JSONEditableValueNode from './JSONEditableValueNode';
 
 const JSONNode = ({
   getItemString,
@@ -14,6 +15,8 @@ const JSONNode = ({
   value,
   valueRenderer,
   isCustomNode,
+  updateValue,
+  addNode,
   ...rest
 }) => {
   const nodeType = isCustomNode(value) ? 'Custom' : objType(value);
@@ -27,7 +30,9 @@ const JSONNode = ({
     nodeType,
     styling,
     value,
-    valueRenderer
+    valueRenderer,
+    updateValue,
+    addNode
   };
 
   const nestedNodeProps = {
@@ -46,7 +51,7 @@ const JSONNode = ({
     case 'Iterable':
       return <JSONIterableNode {...nestedNodeProps} />;
     case 'String':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={raw => `"${raw}"`} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => `${raw}`} />;
     case 'Number':
       return <JSONValueNode {...simpleNodeProps} />;
     case 'Boolean':
