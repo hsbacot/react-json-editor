@@ -61,7 +61,8 @@ export default class JSONTree extends React.Component {
     expandRoot: PropTypes.bool,
     expandAll: PropTypes.bool,
     keyPath: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-    postprocessValue: PropTypes.func
+    postprocessValue: PropTypes.func,
+    updateValue: PropTypes.func
   };
 
   static defaultProps = {
@@ -83,11 +84,9 @@ export default class JSONTree extends React.Component {
   };
 
   valueOnClick = () => {
-    console.log('val');
   };
 
   render() {
-    console.log('hb');
     const {
       data: value,
       expandRoot,
@@ -97,6 +96,8 @@ export default class JSONTree extends React.Component {
       hideRoot,
       theme,
       isLightTheme,
+      updateValue,
+      addNode,
       ...rest
     } = this.props;
 
@@ -122,6 +123,8 @@ export default class JSONTree extends React.Component {
           allExpanded={typeof expandAll === 'undefined' ? false : expandAll}
           keyPath={hideRoot ? [] : keyPath}
           value={postprocessValue(value)}
+          updateValue={updateValue}
+          addNode={addNode}
           valueOnClick={this.valueOnClick}
         />
       </ul>
