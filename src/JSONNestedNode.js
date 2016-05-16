@@ -3,6 +3,7 @@ import JSONArrow from './JSONArrow';
 import getCollectionEntries from './getCollectionEntries';
 import JSONNode from './JSONNode';
 import ItemRange from './ItemRange';
+import JSONAddNode from './JSONAddNode';
 import shouldPureComponentUpdate from 'react-pure-render/function';
 
 /**
@@ -55,6 +56,8 @@ function renderChildNodes(props, from, to) {
       }
     }
   });
+
+  childNodes.push(<JSONAddNode {...props} key={`AddNode--${Date.now()}`} />);
 
   return childNodes;
 }
