@@ -4,6 +4,7 @@
 // port by Daniele Zannotti http://www.github.com/dzannotti <dzannotti@me.com>
 
 import React, { PropTypes } from 'react';
+import * as Perf from 'react-addons-perf';
 import JSONNode from './JSONNode';
 import createStylingFromTheme from './createStylingFromTheme';
 const identity = value => value;
@@ -46,44 +47,19 @@ function checkLegacyTheming(theme, props) {
   return theme;
 }
 
-export default class JSONTree extends React.Component {
-  static propTypes = {
-    data: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]).isRequired,
-    hideRoot: PropTypes.bool,
-    theme: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string
-    ]),
-    isLightTheme: PropTypes.bool,
-    expandRoot: PropTypes.bool,
-    expandAll: PropTypes.bool,
-    keyPath: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-    postprocessValue: PropTypes.func,
-    updateValue: PropTypes.func
-  };
+export class JSONTree extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editableNode: ''
+    }
+  }
 
-  static defaultProps = {
-    shouldExpandNode: (keyName, data, level) => level === 0, // expands root by default,
-    hideRoot: false,
-    keyPath: ['root'],
-    getItemString: (type, data, itemType, itemString) => <span>{itemType} {itemString}</span>,
-    labelRenderer: identity,
-    valueRenderer: identity,
-    postprocessValue: identity,
-    isCustomNode: () => false,
-    handleClick: () => {
-      console.log( // eslint-disable-line no-console
-        'HB Click from index'
-      );
-    },
-    collectionLimit: 50,
-    isLightTheme: true
-  };
-
-  valueOnClick = () => {
+  makeEditable = (keyPath) => {
+    this.setState({
+      editableNode: keyPath.toString()
+    });
+    console.log(this.state.editableNode === keyPath);
   };
 
   render() {
@@ -97,6 +73,8 @@ export default class JSONTree extends React.Component {
       theme,
       isLightTheme,
       updateValue,
+      updateNodeKey,
+      removeNode,
       addNode,
       ...rest
     } = this.props;
@@ -117,6 +95,7 @@ export default class JSONTree extends React.Component {
 
     return (
       <ul {...styling('tree')}>
+        <pre>{JSON.stringify(this.state)}</pre>
         <JSONNode
           {...{ postprocessValue, hideRoot, styling, ...rest }}
           initialExpanded={typeof expandRoot === 'undefined' ? true : expandRoot}
@@ -124,10 +103,53 @@ export default class JSONTree extends React.Component {
           keyPath={hideRoot ? [] : keyPath}
           value={postprocessValue(value)}
           updateValue={updateValue}
+          updateNodeKey={updateNodeKey}
+          removeNode={removeNode}
           addNode={addNode}
+          editableNode={this.state.editableNode}
+          makeEditable={this.makeEditable}
           valueOnClick={this.valueOnClick}
         />
       </ul>
     );
   }
 }
+
+
+JSONTree.propTypes = {
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired,
+  hideRoot: PropTypes.bool,
+  theme: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  isLightTheme: PropTypes.bool,
+  expandRoot: PropTypes.bool,
+  expandAll: PropTypes.bool,
+  keyPath: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  postprocessValue: PropTypes.func,
+  updateValue: PropTypes.func
+};
+
+JSONTree.defaultProps = {
+  shouldExpandNode: (keyName, data, level) => level === 0, // expands root by default,
+  hideRoot: false,
+  keyPath: ['root'],
+  getItemString: (type, data, itemType, itemString) => <span>{itemType} {itemString}</span>,
+  labelRenderer: identity,
+  valueRenderer: identity,
+  postprocessValue: identity,
+  isCustomNode: () => false,
+  handleClick: () => {
+    console.log( // eslint-disable-line no-console
+      'HB Click from index'
+    );
+  },
+  collectionLimit: 50,
+  isLightTheme: true
+};
+
+export default JSONTree;
