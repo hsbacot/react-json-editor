@@ -56,7 +56,6 @@ function renderChildNodes(props, from, to) {
       }
     }
   });
-
   childNodes.push(<JSONAddNode {...props} key={`AddNode--${Date.now()}`} />);
 
   return childNodes;
