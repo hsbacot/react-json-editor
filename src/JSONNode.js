@@ -16,7 +16,11 @@ const JSONNode = ({
   valueRenderer,
   isCustomNode,
   updateValue,
+  updateNodeKey,
+  removeNode,
   addNode,
+  makeEditable,
+  editableNode,
   ...rest
 }) => {
   const nodeType = isCustomNode(value) ? 'Custom' : objType(value);
@@ -32,7 +36,11 @@ const JSONNode = ({
     value,
     valueRenderer,
     updateValue,
-    addNode
+    updateNodeKey,
+    removeNode,
+    addNode,
+    makeEditable,
+    editableNode
   };
 
   const nestedNodeProps = {
