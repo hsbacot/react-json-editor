@@ -63,7 +63,10 @@ const JSONNode = ({
     case 'Number':
       return <JSONEditableValueNode {...simpleNodeProps} />;
     case 'Boolean':
-      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => (raw ? 'true' : 'false')} />;
+      return (<JSONEditableValueNode
+        {...simpleNodeProps}
+        valueGetter={raw => (raw ? 'true' : 'false')}
+      />);
     case 'Date':
       return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => raw.toISOString()} />;
     case 'Null':
@@ -88,7 +91,13 @@ JSONNode.propTypes = {
   styling: PropTypes.func.isRequired,
   value: PropTypes.any,
   valueRenderer: PropTypes.func.isRequired,
-  isCustomNode: PropTypes.func.isRequired
+  isCustomNode: PropTypes.func.isRequired,
+  updateValue: PropTypes.func,
+  updateNodeKey: PropTypes.func,
+  removeNode: PropTypes.func,
+  addNode: PropTypes.func,
+  makeEditable: PropTypes.func,
+  editableNode: PropTypes.bool
 };
 
 export default JSONNode;

@@ -4,7 +4,6 @@
 // port by Daniele Zannotti http://www.github.com/dzannotti <dzannotti@me.com>
 
 import React, { PropTypes } from 'react';
-import * as Perf from 'react-addons-perf';
 import JSONNode from './JSONNode';
 import createStylingFromTheme from './createStylingFromTheme';
 const identity = value => value;
@@ -52,14 +51,13 @@ export class JSONEditor extends React.Component {
     super(props);
     this.state = {
       editableNode: ''
-    }
+    };
   }
 
   makeEditable = (keyPath) => {
     this.setState({
       editableNode: keyPath.toString()
     });
-    console.log(this.state.editableNode === keyPath);
   };
 
   render() {
@@ -131,12 +129,15 @@ JSONEditor.propTypes = {
   expandAll: PropTypes.bool,
   keyPath: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   postprocessValue: PropTypes.func,
-  updateValue: PropTypes.func
+  updateValue: PropTypes.func,
+  updateNodeKey: PropTypes.func,
+  removeNode: PropTypes.func,
+  addNode: PropTypes.func
 };
 
 JSONEditor.defaultProps = {
   shouldExpandNode: (keyName, data, level) => level === 0, // expands root by default,
-  hideRoot: false,
+  hideRoot: true,
   keyPath: ['root'],
   getItemString: (type, data, itemType, itemString) => <span>{itemType} {itemString}</span>,
   labelRenderer: identity,
