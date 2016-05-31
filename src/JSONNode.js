@@ -61,18 +61,18 @@ const JSONNode = ({
     case 'String':
       return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => `${raw}`} />;
     case 'Number':
-      return <JSONValueNode {...simpleNodeProps} />;
+      return <JSONEditableValueNode {...simpleNodeProps} />;
     case 'Boolean':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={raw => (raw ? 'true' : 'false')} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => (raw ? 'true' : 'false')} />;
     case 'Date':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={raw => raw.toISOString()} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => raw.toISOString()} />;
     case 'Null':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={() => 'null'} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={() => 'null'} />;
     case 'Undefined':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={() => 'undefined'} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={() => 'undefined'} />;
     case 'Function':
     case 'Symbol':
-      return <JSONValueNode {...simpleNodeProps} valueGetter={raw => raw.toString()} />;
+      return <JSONEditableValueNode {...simpleNodeProps} valueGetter={raw => raw.toString()} />;
     case 'Custom':
       return <JSONValueNode {...simpleNodeProps} />;
     default:
