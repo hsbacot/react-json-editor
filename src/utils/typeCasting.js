@@ -1,39 +1,32 @@
+export  const JSONtypes = ['String', 'Object', 'Number', 'Boolean', 'Array', 'Null', 'Undefined'];
+
 export function toNumber(val) {
   return Number(val);
 }
 
 export function valueAsType(val, type) {
-  return new Promise((resolve, reject) => {
 
     //['String', 'Object', 'Number', 'Boolean', 'Array'];
     switch(type) {
       case 'String':
-        resolve(String(addslashes(val)));
-        break;
+        return String(addslashes(val));
       case 'Object':
         try {
-          resolve(JSON.parse(val));
+          return JSON.parse(val);
         } catch(error) {
-          reject({error})
+          throw ({error})
         }
-        break;
       case 'Number':
-        resolve(Number(val));
-        break;
+        return Number(val);
       case 'Boolean':
-        resolve(val === 'true');
-        break;
+        return val === 'true';
       case 'Array':
-        resolve(JSON.parse(val));
-        break;
+        return JSON.parse(val);
       case 'Null':
-        resolve(null);
-        break;
+        return null;
       case 'Undefined':
-        resolve(undefined);
-        break;
+        return undefined;
     }
-  });
 }
 
 // escapes chars as needed
