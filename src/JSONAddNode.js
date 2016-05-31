@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
-import { valueAsType } from './utils/typeCasting';
+import { valueAsType, JSONtypes } from './utils/typeCasting';
+import { ValueInput } from './ValueInput';
+import { ValueType } from './ValueType';
 
 const AddOptions = props => {
   const {
@@ -12,27 +14,13 @@ const AddOptions = props => {
     nodeType
   } = props;
 
-  const types = ['String', 'Object', 'Number', 'Boolean', 'Array', 'Null', 'Undefined'];
-
-  let nodeTypes = types.map( type =>  <option value={type}>{type}</option> );
-
-  let valueInput;
-  if(nodeType === 'Boolean') {
-    valueInput = (
-      <select onChange={updateNodeValue} value={newNodeValue}>
-        <option value={false}>false</option>
-        <option value={true}>true</option>
-      </select>
-    )
-  } else {
-    valueInput = <input onChange={updateNodeValue} value={newNodeValue}/>;
-  }
+  let nodeTypes = JSONtypes.map( type =>  <option value={type}>{type}</option> );
 
   return (
     <div>
       <input onChange={updateNodeKey} value={newNodeKey}/>:
-      { valueInput }
-      <select value={nodeType} onChange={updateNodeType} >{nodeTypes}</select>
+      <ValueInput nodeType={nodeType} updateNodeValue={updateNodeValue} />
+      <ValueType {...props} />
       <button onClick={addNode}>Add Node</button>
     </div>
   )
@@ -69,13 +57,10 @@ export class JSONAddNode  extends React.Component {
   };
 
   handleAddNode = () => {
-    valueAsType(this.state.newNodeValue, this.state.newNodeType).then( newNodeValue => {
-      let newNode = {};
-      newNode[`${this.state.newNodeKey}`] = newNodeValue;
-      this.props.addNode(this.state.newNodeKey, newNodeValue, this.props.keyPath);
-    }).catch( err => {
-      console.log(err);
-    });
+    let newNode = {};
+    let newNodeValue = valueAsType(this.state.newNodeValue, this.state.newNodeType);
+    newNode[`${this.state.newNodeKey}`] = newNodeValue;
+    this.props.addNode(this.state.newNodeKey, newNodeValue, this.props.keyPath);
     this.setState({
       showAddOptions: false
     })
