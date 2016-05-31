@@ -1,4 +1,7 @@
 import React, { PropTypes } from 'react';
+import  { ValueInput } from './ValueInput';
+import { ValueType } from './ValueType';
+import { valueAsType } from './utils/typeCasting'
 
 
 export class JSONEditableValueNode extends React.Component {
@@ -7,13 +10,14 @@ export class JSONEditableValueNode extends React.Component {
     this.state = {
       editableKey: false,
       editableValue: false,
+      newNodeValue: this.props.valueGetter(this.props.value),
+      nodeType: this.props.nodeType,
       keyValue: this.props.labelRenderer(...this.props.keyPath)
     }
 
   }
 
   makeEditableKey = () => {
-    console.log('kasdf');
     this.setState({
       editableKey: true
     })
@@ -30,12 +34,25 @@ export class JSONEditableValueNode extends React.Component {
       editableKey: false,
       editableValue: false
     });
+    this.props.updateValue(valueAsType(this.state.newNodeValue, this.state.nodeType), this.props.keyPath);
     this.props.updateNodeKey(this.state.keyValue, this.props.keyPath);
   };
 
   updateLocalKey = (newKey) => {
     this.setState({
       keyValue: newKey
+    })
+  };
+
+  handleNodeTypeUpdate = (e) => {
+    this.setState({
+      nodeType: e.target.value
+    })
+  };
+
+  handleNodeValueInput = (e) => {
+    this.setState({
+      newNodeValue: e.target.value
     })
   };
 
@@ -63,12 +80,15 @@ export class JSONEditableValueNode extends React.Component {
         </label>;
 
        const editableValue = this.state.editableValue ?
-        <input {...styling('valueText', nodeType, keyPath)}
-            onChange={(e) => updateValue(e.target.value, keyPath)}
-            value={valueRenderer(valueGetter(value), value)}/> :
+       <ValueInput nodeType={this.state.nodeType}
+                   updateNodeValue={this.handleNodeValueInput}
+                   newNodeValue={this.state.newNodeValue} /> :
           <span {...this.props.styling('valueText', nodeType, keyPath)} onClick={this.makeEditableValue}>
             {valueRenderer(valueGetter(value), value)}
           </span>;
+
+      const typeSelector = this.state.editableValue ?
+        <ValueType nodeType={this.state.nodeType} updateNodeType={this.handleNodeTypeUpdate} /> : null ;
 
       const actionButton = this.state.editableKey || this.state.editableValue ?
         <button onClick={this.clickUpdateValue}>Update Value</button> :
@@ -81,6 +101,7 @@ export class JSONEditableValueNode extends React.Component {
         >
           { editableKey }:
           { editableValue }
+          { typeSelector }
           { actionButton }
         </li>
       </div>
