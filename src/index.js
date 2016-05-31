@@ -47,7 +47,7 @@ function checkLegacyTheming(theme, props) {
   return theme;
 }
 
-export class JSONTree extends React.Component {
+export class JSONEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -116,7 +116,7 @@ export class JSONTree extends React.Component {
 }
 
 
-JSONTree.propTypes = {
+JSONEditor.propTypes = {
   data: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object
@@ -134,7 +134,7 @@ JSONTree.propTypes = {
   updateValue: PropTypes.func
 };
 
-JSONTree.defaultProps = {
+JSONEditor.defaultProps = {
   shouldExpandNode: (keyName, data, level) => level === 0, // expands root by default,
   hideRoot: false,
   keyPath: ['root'],
@@ -143,13 +143,8 @@ JSONTree.defaultProps = {
   valueRenderer: identity,
   postprocessValue: identity,
   isCustomNode: () => false,
-  handleClick: () => {
-    console.log( // eslint-disable-line no-console
-      'HB Click from index'
-    );
-  },
   collectionLimit: 50,
   isLightTheme: true
 };
 
-export default JSONTree;
+export default JSONEditor;
