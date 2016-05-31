@@ -1,4 +1,10 @@
-# react-json-tree
+# react-object-editor
+
+## Forked from react-json-tree
+
+TODO: Update README  
+
+---------------------------
 
 React JSON Viewer Component, Extracted from [redux-devtools](https://github.com/gaearon/redux-devtools). Supports [iterable](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#iterable) objects, such as [Immutable.js](https://facebook.github.io/immutable-js/).
 
