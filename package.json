@@ -1,7 +1,7 @@
 {
-  "name": "react-json-tree",
-  "version": "0.7.1",
-  "description": "React JSON Viewer Component, Extracted from redux-devtools",
+  "name": "react-json-editor",
+  "version": "0.1.1",
+  "description": "React JSON Editor Component, Forked from react-json-tree",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -15,22 +15,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chibicode/react-json-tree.git"
+    "url": "https://github.com/hsbacot/react-json-editor.git"
   },
   "keywords": [
     "react",
     "json editor"
   ],
-  "author": "Shu Uesugi <shu@chibicode.com> (http://github.com/chibicode)",
+  "author": "Hunter Bacot <hsbacot@gmail.com> (http://www.github.com/hsbacot)",
   "contributors": [
     "Dave Vedder <veddermatic@gmail.com> (http://www.eskimospy.com/)",
-    "Daniele Zannotti <dzannotti@me.com> (http://www.github.com/dzannotti)"
+    "Daniele Zannotti <dzannotti@me.com> (http://www.github.com/dzannotti)",
+    "Shu Uesugi <shu@chibicode.com> (http://github.com/chibicode)"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chibicode/react-json-tree/issues"
+    "url": "https://github.com/hsbacot/react-json-editor/issues"
   },
-  "homepage": "https://github.com/chibicode/react-json-tree",
+  "homepage": "https://github.com/hsbacot/react-json-editor",
   "devDependencies": {
     "@kadira/storybook": "^1.25.0",
     "babel-cli": "^6.7.7",
