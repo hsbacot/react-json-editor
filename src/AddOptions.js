@@ -16,7 +16,7 @@ export const AddOptions = props => {
       <input onChange={updateNodeKey} value={newNodeKey} />:
       <ValueInput nodeType={nodeType} updateNodeValue={updateNodeValue} />
       <ValueType {...props} />
-      <button onClick={addNode}>Add Node</button>
+      <span onClick={addNode}>Add Node</span>
     </div>
   );
 };

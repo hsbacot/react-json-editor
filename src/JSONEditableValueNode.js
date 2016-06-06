@@ -101,8 +101,8 @@ export class JSONEditableValueNode extends React.Component {
       /> : null;
 
     const actionButton = this.state.editableKey || this.state.editableValue ?
-      <button onClick={this.clickUpdateValue}>Update Value</button> :
-      <button onClick={() => removeNode(keyPath)}>X</button>;
+      <span onClick={this.clickUpdateValue}>[update value]</span> :
+      <span onClick={() => removeNode(keyPath)}>[x]</span>;
 
     return (
       <div>
